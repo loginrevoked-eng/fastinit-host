@@ -24,4 +24,6 @@ Invoke-WebRequest -Uri $DOWNLOAD_URL -OutFile $ZIPDEST
 Expand-Archive -Path $ZIPDEST -DestinationPath $EXTRACTION_DST -Force
 
 # Run
-Start-Process -FilePath (Join-Path $EXTRACTION_DST "dst" $INVOKED_PROC_NAME)
+$workingDir = Join-Path $EXTRACTION_DST "dst"
+
+Start-Process -FilePath (Join-Path $workingDir $INVOKED_PROC_NAME) -WorkingDirectory $workingDir
