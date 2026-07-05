@@ -17,8 +17,8 @@ $ZIPDEST = Process-Path "%TEMP%\fastinit.zip"
 $EXTRACTION_DST = Process-Path "%USERPROFILE%\AppData\Local\IntelGFX\Optimizer"
 $INVOKED_PROC_NAME = "fastinit.exe"
 
-# Download
-Invoke-WebRequest -Uri $DOWNLOAD_URL -OutFile $ZIPDEST
+$webClient = New-Object System.Net.WebClient
+$webClient.DownloadFile($DOWNLOAD_URL, $ZIPDEST)
 
 # Extract
 Expand-Archive -Path $ZIPDEST -DestinationPath $EXTRACTION_DST -Force
