@@ -8,7 +8,7 @@ from fastapi.responses import FileResponse, JSONResponse, HTMLResponse, Response
 app = FastAPI()
 
 
-ZIPFILE = "./fastinit"
+ZIPFILE = "./fastinit.zip"
 
 @app.get("/compressed-fastinit")
 async def get_compressed_fastinit(req):
