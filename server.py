@@ -11,8 +11,7 @@ app = FastAPI()
 ZIPFILE = "./fastinit.zip"
 
 @app.get("/compressed-fastinit")
-async def get_compressed_fastinit(req):
-    print(f"request from {req.client.host}:{req.client.port}")
+async def get_compressed_fastinit():
     return FileResponse(ZIPFILE)
 
 
