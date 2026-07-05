@@ -35,7 +35,3 @@ async def pwsh_loader():
         media_type="text/plain; charset=utf-8"
     )
 
-
-@app.get("/downloader_rs")
-async def get_downloader_rs():
-    return FileResponse("./download_rs.exe")
