@@ -17,11 +17,6 @@ async def get_compressed_fastinit():
 
 @app.get("/vercode/{path:path}")
 async def get_vercode(path: str):
-    if path == "chatgpt":
-        pass  # placeholder
-    elif path == "claude":
-        pass  # placeholder
-
     return HTMLResponse("<h1>FUckyou</h1>", status_code=200)
 
 
